@@ -120,13 +120,11 @@ a {
   display: flex;
   flex-direction: column;
   gap: 15px;
-
   color: #ffffff;
 }
 
 .slogan h1 {
   margin: 0;
-
   font-size: 28px;
   font-weight: 700;
   line-height: 34px;
@@ -134,7 +132,6 @@ a {
 
 .slogan p {
   margin: 0;
-
   font-size: 16px;
   font-weight: 700;
   line-height: normal;
@@ -143,6 +140,12 @@ a {
 /* =========================
    Search Bar
 ========================= */
+
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+}
 
 .search-bar {
   width: 460px;
@@ -211,6 +214,58 @@ a {
 }
 
 /* =========================
+   Category Menu
+========================= */
+
+.category-menu {
+  position: absolute;
+  top: 46px;
+  left: 0;
+
+  width: 300px;
+  height: 160px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(4, 40px);
+
+  background: #ffffff;
+
+  border-radius: 5px;
+  box-shadow: 0 0 20px #aabbcc;
+
+  z-index: 100;
+}
+
+.category-menu[hidden] {
+  display: none;
+}
+
+.category-item {
+  width: 100%;
+  height: 40px;
+
+  padding: 10px 0;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #000000;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.category-item:hover {
+  background: #eeeeee;
+}
+
+/* =========================
    Attraction Section
 ========================= */
 
@@ -256,16 +311,20 @@ a {
 
   padding: 0;
 
-  background: transparent;
+  background: #ffffff;
+  border: 1px solid #aabbcc;
+  border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  overflow: hidden;
 }
 
 .arrow-button img {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: block;
 }
 
@@ -413,6 +472,17 @@ a {
 }
 
 /* =========================
+   Middle Size
+========================= */
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .attractions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+  }
+}
+
+/* =========================
    Mobile
 ========================= */
 
@@ -492,62 +562,4 @@ a {
   .footer {
     margin-top: 25px;
   }
-}
-
-/* =========================
-   Category Menu
-========================= */
-
-.search {
-  position: relative;
-  width: 100%;
-  max-width: 460px;
-}
-
-.category-menu {
-  position: absolute;
-  top: 46px;
-  left: 0;
-
-  width: 300px;
-  height: 160px;
-
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(4, 40px);
-
-  background: #ffffff;
-
-  border-radius: 5px;
-  box-shadow: 0 0 20px #aabbcc;
-
-  z-index: 100;
-}
-
-.category-menu[hidden] {
-  display: none;
-}
-
-.category-item {
-  width: 100%;
-  height: 40px;
-
-  padding: 10px 0;
-
-  border: 0;
-  border-radius: 8px;
-
-  background: #ffffff;
-  color: #000000;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  text-align: center;
-
-  cursor: pointer;
-}
-
-.category-item:hover {
-  background: #eeeeee;
 }
