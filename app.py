@@ -1,5 +1,6 @@
 from fastapi import *
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 import os
 
 import mysql.connector
@@ -20,6 +21,7 @@ def get_database_connection():
 
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/api/categories")
