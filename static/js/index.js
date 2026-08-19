@@ -61,9 +61,10 @@ async function loadAttractions() {
 
 function renderAttractions(attractions) {
   attractions.forEach((attraction) => {
-    const card = document.createElement("article");
+    const card = document.createElement("a");
 
     card.className = "attraction-card";
+    card.href = `/attraction/${attraction.id}`;
 
     const imageUrl = attraction.images.length > 0 ? attraction.images[0] : "";
 
