@@ -503,7 +503,7 @@ a {
   margin: 0 0 20px;
 
   font-size: 16px;
-  line-height: 1;
+  line-height: 24px;
   font-weight: 400;
 
   color: #666666;
@@ -527,7 +527,7 @@ a {
 
 .info-content {
   font-size: 16px;
-  line-height: 1;
+  line-height: 24px;
   font-weight: 400;
 
   color: #666666;
@@ -906,7 +906,7 @@ a {
     margin: 0 0 20px;
 
     font-size: 16px;
-    line-height: 1;
+    line-height: 24px;
     font-weight: 400;
   }
 
@@ -923,7 +923,7 @@ a {
     width: 100%;
 
     font-size: 16px;
-    line-height: 1;
+    line-height: 24px;
 
     white-space: normal;
     overflow-wrap: break-word;
