@@ -1,11 +1,190 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attraction</title>
-</head>
-<body>
-  
-</body>
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>台北一日遊</title>
+
+    <link rel="stylesheet" href="/static/css/attraction.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+       Navigation
+  ========================== -->
+
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="/" class="logo"> 台北一日遊 </a>
+
+        <div class="nav-links">
+          <a href="#">預定行程</a>
+          <a href="#">登入/註冊</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="nav-separator"></div>
+
+    <!-- =========================
+       Main
+  ========================== -->
+
+    <main class="main-container">
+      <!-- =========================
+         Attraction Section
+    ========================== -->
+
+      <section class="attraction-section">
+        <!-- Picture -->
+        <div class="picture-current">
+          <img
+            src=""
+            alt="景點圖片"
+            class="attraction-image"
+            id="attraction-image"
+          />
+
+          <button
+            class="slide-arrow left-arrow"
+            type="button"
+            aria-label="上一張圖片"
+          >
+            <img src="/static/images/btn_leftArrow.png" alt="" />
+          </button>
+
+          <button
+            class="slide-arrow right-arrow"
+            type="button"
+            aria-label="下一張圖片"
+          >
+            <img src="/static/images/btn_rightArrow.png" alt="" />
+          </button>
+
+          <!--
+          目前先保留靜態 indicator。
+          下一步做 slideshow 時會改成由 JS
+          依照 attraction.images 數量動態產生。
+        -->
+          <div class="indicator-bar" id="indicator-bar"></div>
+        </div>
+
+        <!-- =========================
+           Profile
+      ========================== -->
+
+        <div class="profile">
+          <h1 class="attraction-name" id="attraction-name"></h1>
+
+          <div class="attraction-meta" id="attraction-meta"></div>
+
+          <!-- =========================
+             Booking Form
+        ========================== -->
+
+          <div class="booking-form">
+            <div class="booking-title">訂購導覽行程</div>
+
+            <div class="booking-description">
+              以此景點為中心的一日行程，帶您探索城市角落故事
+            </div>
+
+            <!-- Date -->
+            <div class="booking-field booking-date">
+              <span class="field-label"> 選擇日期： </span>
+
+              <div class="date-input-wrapper">
+                <input type="date" class="date-input" id="booking-date" />
+
+                <img
+                  src="/static/images/icon_calendar.png"
+                  alt=""
+                  class="calendar-icon"
+                />
+              </div>
+            </div>
+
+            <!-- Time -->
+            <div class="booking-field booking-time">
+              <span class="field-label"> 選擇時間： </span>
+
+              <label class="time-option">
+                <input
+                  type="radio"
+                  name="booking-time"
+                  value="morning"
+                  checked
+                />
+
+                <span class="custom-radio"></span>
+
+                <span> 上半天 </span>
+              </label>
+
+              <label class="time-option">
+                <input type="radio" name="booking-time" value="afternoon" />
+
+                <span class="custom-radio"></span>
+
+                <span> 下半天 </span>
+              </label>
+            </div>
+
+            <!-- Price -->
+            <div class="booking-field booking-price">
+              <span class="field-label"> 導覽費用： </span>
+
+              <span class="price-text" id="price-text"> 新台幣 2000 元 </span>
+            </div>
+
+            <!-- Booking Button -->
+            <button class="booking-button" id="booking-button" type="button">
+              開始預約行程
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+         Separator
+    ========================== -->
+
+      <div class="main-separator"></div>
+
+      <!-- =========================
+         Attraction Information
+    ========================== -->
+
+      <section class="infors">
+        <p class="attraction-description" id="attraction-description"></p>
+
+        <!-- Address -->
+        <div class="info-block">
+          <div class="info-title">景點地址：</div>
+
+          <div class="info-content" id="attraction-address"></div>
+        </div>
+
+        <!-- Transport -->
+        <div class="info-block transport-block">
+          <div class="info-title">交通方式：</div>
+
+          <div class="info-content" id="attraction-transport"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================
+       Footer
+  ========================== -->
+
+    <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
+
+    <!-- =========================
+       JavaScript
+  ========================== -->
+
+    <script src="/static/js/attraction.js"></script>
+  </body>
 </html>

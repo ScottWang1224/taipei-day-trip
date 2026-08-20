@@ -1,0 +1,944 @@
+/* =========================
+   Global
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Noto Sans TC", Arial, sans-serif;
+  color: #666666;
+  background: #ffffff;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   Navigation
+========================= */
+
+.navbar {
+  width: 100%;
+  height: 54px;
+  background: #ffffff;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 54px;
+
+  margin: 0 auto;
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 30px;
+  line-height: 34px;
+  font-weight: 700;
+
+  color: #448899;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  padding: 10px;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  color: #666666;
+}
+
+.nav-separator {
+  width: 100%;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* =========================
+   Main
+========================= */
+
+.main-container {
+  width: 1200px;
+  margin: 40px auto 0;
+}
+
+/* =========================
+   Attraction Section
+========================= */
+
+.attraction-section {
+  width: 1200px;
+  height: 400px;
+
+  display: flex;
+  gap: 30px;
+
+  padding: 0 15px;
+}
+
+/* =========================
+   Picture
+========================= */
+
+.picture-current {
+  position: relative;
+
+  width: 540px;
+  height: 400px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border-radius: 5px;
+}
+
+.attraction-image {
+  display: block;
+
+  width: 540px;
+  height: 406px;
+
+  object-fit: cover;
+
+  transform: translateY(-3px);
+}
+
+/* =========================
+   Slideshow Arrows
+========================= */
+
+.slide-arrow {
+  position: absolute;
+
+  top: 182px;
+
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  background: transparent;
+
+  opacity: 0.75;
+
+  z-index: 2;
+}
+
+.slide-arrow img {
+  display: block;
+
+  width: 36px;
+  height: 36px;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+/* =========================
+   Indicator
+========================= */
+
+.indicator-bar {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 5px;
+
+  display: flex;
+
+  opacity: 0.75;
+
+  z-index: 2;
+}
+
+.indicator {
+  flex: 1;
+
+  height: 5px;
+
+  background: #ffffff;
+}
+
+.indicator.active {
+  background: #000000;
+}
+
+/* =========================
+   Profile
+========================= */
+
+.profile {
+  width: 600px;
+  height: 400px;
+}
+
+.attraction-name {
+  width: 600px;
+
+  margin: 0;
+
+  font-size: 24px;
+  line-height: 33px;
+  font-weight: 700;
+
+  color: #666666;
+}
+
+.attraction-meta {
+  width: 600px;
+
+  margin-top: 15px;
+
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+
+  color: #666666;
+}
+
+/* =========================
+   Booking Form
+========================= */
+
+.booking-form {
+  width: 600px;
+  height: 302px;
+
+  margin-top: 20px;
+
+  padding: 15px 20px;
+
+  border-radius: 5px;
+
+  background: #e8e8e8;
+}
+
+.booking-title {
+  width: 560px;
+  height: 22px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #666666;
+}
+
+.booking-description {
+  width: 560px;
+  height: 24px;
+
+  margin-top: 15px;
+
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+
+  color: #666666;
+}
+
+/* =========================
+   Booking Fields
+========================= */
+
+.booking-field {
+  display: flex;
+  align-items: center;
+
+  width: 560px;
+
+  font-size: 16px;
+
+  color: #666666;
+}
+
+.field-label {
+  width: 81px;
+
+  flex-shrink: 0;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* =========================
+   Date
+========================= */
+
+.booking-date {
+  height: 35px;
+
+  margin-top: 15px;
+}
+
+.date-input-wrapper {
+  position: relative;
+
+  width: 193px;
+  height: 35px;
+}
+
+.date-input {
+  width: 193px;
+  height: 35px;
+
+  padding: 0 35px 0 10px;
+
+  border: 0;
+
+  background: #ffffff;
+
+  font-size: 16px;
+  font-family: inherit;
+
+  color: #000000;
+}
+
+.date-input:focus {
+  outline: none;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+
+  right: 0;
+
+  width: 35px;
+  height: 35px;
+
+  opacity: 0;
+
+  cursor: pointer;
+
+  z-index: 3;
+}
+
+.calendar-icon {
+  position: absolute;
+
+  right: 10px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+/* =========================
+   Time
+========================= */
+
+.booking-time {
+  height: 22px;
+
+  margin-top: 15px;
+}
+
+.time-option {
+  position: relative;
+
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+
+  margin-right: 5px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.time-option input {
+  position: absolute;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.custom-radio {
+  position: relative;
+
+  display: inline-block;
+
+  width: 22px;
+  height: 22px;
+
+  margin-right: 9px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  flex-shrink: 0;
+}
+
+.time-option input:checked + .custom-radio::after {
+  content: "";
+
+  position: absolute;
+
+  top: 2px;
+  left: 2px;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #448899;
+}
+
+/* =========================
+   Price
+========================= */
+
+.booking-price {
+  height: 22px;
+
+  margin-top: 15px;
+}
+
+.price-text {
+  font-size: 16px;
+  font-weight: 400;
+
+  color: #666666;
+}
+
+/* =========================
+   Booking Button
+========================= */
+
+.booking-button {
+  height: 36px;
+
+  margin-top: 25px;
+
+  padding: 10px 20px;
+
+  border: 0;
+  border-radius: 5px;
+
+  background: #448899;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 19px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+/* =========================
+   Main Separator
+========================= */
+
+.main-separator {
+  width: 1200px;
+
+  margin-top: 40px;
+
+  border-top: 1px solid #e8e8e8;
+}
+
+/* =========================
+   Information
+========================= */
+
+.infors {
+  width: 1200px;
+  min-height: 362px;
+
+  margin-top: 39px;
+
+  padding: 10px;
+}
+
+.attraction-description {
+  width: 1180px;
+
+  margin: 0 0 20px;
+
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #666666;
+}
+
+.info-block {
+  width: 1180px;
+}
+
+.info-title {
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #666666;
+}
+
+.info-content {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #666666;
+}
+
+.transport-block {
+  margin-top: 20px;
+}
+
+/* =========================
+   Footer
+========================= */
+
+.footer {
+  width: 100%;
+  height: 104px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #757575;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   Tablet / Transition
+   601px ~ 900px
+========================================================= */
+
+@media (min-width: 601px) and (max-width: 1199px) {
+  /* Navigation */
+
+  .navbar-container {
+    width: 100%;
+    max-width: 1200px;
+
+    padding: 10px 20px;
+  }
+
+  /* Main */
+
+  .main-container {
+    width: 100%;
+    margin: 30px auto 0;
+  }
+
+  /* Attraction */
+
+  .attraction-section {
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    padding: 0 20px;
+  }
+
+  /* Picture */
+
+  .picture-current {
+    width: 100%;
+    height: 400px;
+
+    margin: 0;
+
+    border-radius: 5px;
+  }
+
+  .attraction-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transform: none;
+  }
+
+  .slide-arrow {
+    top: 182px;
+  }
+
+  /* Profile */
+
+  .profile {
+    width: 100%;
+    height: 400px;
+
+    margin-top: 30px;
+  }
+
+  .attraction-name,
+  .attraction-meta {
+    width: 100%;
+  }
+
+  /* Booking */
+
+  .booking-form {
+    width: 100%;
+  }
+
+  .booking-title,
+  .booking-description,
+  .booking-field {
+    width: calc(100% - 40px);
+  }
+
+  /* Separator */
+
+  .main-separator {
+    width: calc(100% - 40px);
+
+    margin-top: 40px;
+    margin-left: 20px;
+  }
+
+  /* Information */
+
+  .infors {
+    width: calc(100% - 40px);
+    min-height: auto;
+
+    margin-top: 39px;
+    margin-left: 20px;
+
+    padding: 10px 0;
+  }
+
+  .attraction-description,
+  .info-block {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   Mobile
+   <= 600px
+========================================================= */
+
+@media (max-width: 600px) {
+  /* =========================
+     Navigation
+  ========================= */
+
+  .navbar {
+    width: 100%;
+    height: 54px;
+  }
+
+  .navbar-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 54px;
+
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 30px;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    white-space: nowrap;
+  }
+
+  .nav-links a {
+    padding: 10px 5px;
+  }
+
+  /* =========================
+     Main
+  ========================= */
+
+  .main-container {
+    width: 100%;
+
+    margin: 0;
+  }
+
+  /* =========================
+     Attraction Section
+  ========================= */
+
+  .attraction-section {
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    padding: 0;
+
+    gap: 0;
+  }
+
+  /* =========================
+     Picture
+  ========================= */
+
+  .picture-current {
+    position: relative;
+
+    width: 100%;
+    height: 350px;
+
+    border-radius: 0;
+
+    overflow: hidden;
+  }
+
+  .attraction-image {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 466px;
+    height: 350px;
+
+    object-fit: cover;
+
+    transform: translateX(-50%);
+  }
+
+  /* arrows */
+
+  .slide-arrow {
+    top: 157px;
+
+    width: 36px;
+    height: 36px;
+  }
+
+  .left-arrow {
+    left: 10px;
+  }
+
+  .right-arrow {
+    right: 10px;
+  }
+
+  /* indicator */
+
+  .indicator-bar {
+    width: 100%;
+    height: 5px;
+
+    left: 0;
+    bottom: 0;
+  }
+
+  /* =========================
+     Profile
+  ========================= */
+
+  .profile {
+    width: calc(100% - 20px);
+    height: 390px;
+
+    margin: 20px 10px 0;
+  }
+
+  .attraction-name {
+    width: 100%;
+
+    font-size: 24px;
+    line-height: 33px;
+    font-weight: 700;
+  }
+
+  .attraction-meta {
+    width: 100%;
+
+    margin-top: 15px;
+
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+  }
+
+  /* =========================
+     Booking Form
+  ========================= */
+
+  .booking-form {
+    width: 100%;
+    height: 300px;
+
+    margin-top: 20px;
+
+    padding: 15px 20px;
+  }
+
+  .booking-title {
+    width: 300px;
+    height: 22px;
+  }
+
+  .booking-description {
+    width: 300px;
+    height: 48px;
+
+    margin-top: 15px;
+
+    line-height: 1;
+  }
+
+  /* =========================
+     Booking Fields
+  ========================= */
+
+  .booking-field {
+    width: 300px;
+  }
+
+  .booking-date {
+    width: 300px;
+    height: 35px;
+
+    margin-top: 15px;
+  }
+
+  .booking-time {
+    width: 300px;
+    height: 22px;
+
+    margin-top: 15px;
+  }
+
+  .booking-price {
+    width: 300px;
+    height: 22px;
+
+    margin-top: 15px;
+  }
+
+  .booking-button {
+    margin-top: 25px;
+  }
+
+  /* =========================
+     Separator
+  ========================= */
+
+  .main-separator {
+    width: calc(100% - 20px);
+
+    margin-top: 40px;
+    margin-left: 10px;
+
+    border-top: 1px solid #e8e8e8;
+  }
+
+  /* =========================
+     Information
+  ========================= */
+
+  .infors {
+    width: calc(100% - 20px);
+    min-height: 712px;
+
+    margin-top: 39px;
+    margin-left: 10px;
+
+    padding: 10px 0;
+  }
+
+  .attraction-description {
+    width: 100%;
+
+    margin: 0 0 20px;
+
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+
+  .info-block {
+    width: 100%;
+  }
+
+  .info-title {
+    width: 100%;
+    height: 32px;
+  }
+
+  .info-content {
+    width: 100%;
+
+    font-size: 16px;
+    line-height: 24px;
+
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .transport-block {
+    margin-top: 20px;
+  }
+
+  /* =========================
+     Footer
+  ========================= */
+
+  .footer {
+    width: 100%;
+    height: 104px;
+  }
+}
