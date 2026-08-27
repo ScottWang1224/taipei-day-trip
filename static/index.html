@@ -6,6 +6,7 @@
     <title>台北一日遊</title>
 
     <link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="/static/css/auth.css" />
   </head>
 
   <body>
@@ -16,7 +17,7 @@
 
         <div class="navigation-menu">
           <a href="#">預定行程</a>
-          <a href="#" class="member-action" id="member-action">登入/註冊</a>
+          <a href="#" id="member-action">登入/註冊</a>
         </div>
       </nav>
     </header>
@@ -48,7 +49,6 @@
                 </button>
               </div>
 
-              <!-- Category popup -->
               <div class="category-menu" hidden></div>
             </div>
           </div>
@@ -57,7 +57,6 @@
 
       <!-- Attraction Section -->
       <section class="attraction-section">
-        <!-- MRT List -->
         <div class="list-bar">
           <div class="arrow-container arrow-left">
             <button class="arrow-button" type="button" aria-label="往左">
@@ -76,22 +75,17 @@
           </div>
         </div>
 
-        <!-- API 動態產生景點 -->
         <div class="attractions"></div>
       </section>
     </main>
 
     <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
 
-    <!-- =========================
-         Authentication Dialog
-    ========================== -->
-
+    <!-- Authentication Dialog -->
     <div class="auth-modal" id="auth-modal" hidden>
-      <!-- Backdrop -->
       <div class="auth-backdrop"></div>
 
-      <!-- Sign In Dialog -->
+      <!-- Sign In -->
       <section
         class="auth-dialog signin-dialog"
         id="signin-dialog"
@@ -112,7 +106,6 @@
               id="signin-email"
               type="email"
               placeholder="輸入電子信箱"
-              aria-label="電子信箱"
             />
 
             <input
@@ -120,7 +113,6 @@
               id="signin-password"
               type="password"
               placeholder="輸入密碼"
-              aria-label="密碼"
             />
 
             <button class="dialog-submit" id="signin-submit" type="button">
@@ -136,7 +128,7 @@
         </div>
       </section>
 
-      <!-- Sign Up Dialog -->
+      <!-- Sign Up -->
       <section
         class="auth-dialog signup-dialog"
         id="signup-dialog"
@@ -158,7 +150,6 @@
               id="signup-name"
               type="text"
               placeholder="輸入姓名"
-              aria-label="姓名"
             />
 
             <input
@@ -166,7 +157,6 @@
               id="signup-email"
               type="email"
               placeholder="輸入電子信箱"
-              aria-label="電子信箱"
             />
 
             <input
@@ -174,7 +164,6 @@
               id="signup-password"
               type="password"
               placeholder="輸入密碼"
-              aria-label="密碼"
             />
 
             <button class="dialog-submit" id="signup-submit" type="button">
@@ -192,5 +181,6 @@
     </div>
 
     <script src="/static/js/index.js"></script>
+    <script src="/static/js/auth.js"></script>
   </body>
 </html>

@@ -7,35 +7,26 @@
     <title>台北一日遊</title>
 
     <link rel="stylesheet" href="/static/css/attraction.css" />
+    <link rel="stylesheet" href="/static/css/auth.css" />
   </head>
 
   <body>
-    <!-- =========================
-       Navigation
-  ========================== -->
-
+    <!-- Navigation -->
     <nav class="navbar">
       <div class="navbar-container">
-        <a href="/" class="logo"> 台北一日遊 </a>
+        <a href="/" class="logo">台北一日遊</a>
 
         <div class="nav-links">
           <a href="#">預定行程</a>
-          <a href="#">登入/註冊</a>
+          <a href="#" id="member-action">登入/註冊</a>
         </div>
       </div>
     </nav>
 
     <div class="nav-separator"></div>
 
-    <!-- =========================
-       Main
-  ========================== -->
-
+    <!-- Main -->
     <main class="main-container">
-      <!-- =========================
-         Attraction Section
-    ========================== -->
-
       <section class="attraction-section">
         <!-- Picture -->
         <div class="picture-current">
@@ -62,27 +53,16 @@
             <img src="/static/images/btn_rightArrow.png" alt="" />
           </button>
 
-          <!--
-          目前先保留靜態 indicator。
-          下一步做 slideshow 時會改成由 JS
-          依照 attraction.images 數量動態產生。
-        -->
           <div class="indicator-bar" id="indicator-bar"></div>
         </div>
 
-        <!-- =========================
-           Profile
-      ========================== -->
-
+        <!-- Profile -->
         <div class="profile">
           <h1 class="attraction-name" id="attraction-name"></h1>
 
           <div class="attraction-meta" id="attraction-meta"></div>
 
-          <!-- =========================
-             Booking Form
-        ========================== -->
-
+          <!-- Booking Form -->
           <div class="booking-form">
             <div class="booking-title">訂購導覽行程</div>
 
@@ -90,9 +70,8 @@
               以此景點為中心的一日行程，帶您探索城市角落故事
             </div>
 
-            <!-- Date -->
             <div class="booking-field booking-date">
-              <span class="field-label"> 選擇日期： </span>
+              <span class="field-label">選擇日期：</span>
 
               <div class="date-input-wrapper">
                 <input type="date" class="date-input" id="booking-date" />
@@ -105,9 +84,8 @@
               </div>
             </div>
 
-            <!-- Time -->
             <div class="booking-field booking-time">
-              <span class="field-label"> 選擇時間： </span>
+              <span class="field-label">選擇時間：</span>
 
               <label class="time-option">
                 <input
@@ -118,27 +96,23 @@
                 />
 
                 <span class="custom-radio"></span>
-
-                <span> 上半天 </span>
+                <span>上半天</span>
               </label>
 
               <label class="time-option">
                 <input type="radio" name="booking-time" value="afternoon" />
 
                 <span class="custom-radio"></span>
-
-                <span> 下半天 </span>
+                <span>下半天</span>
               </label>
             </div>
 
-            <!-- Price -->
             <div class="booking-field booking-price">
-              <span class="field-label"> 導覽費用： </span>
+              <span class="field-label">導覽費用：</span>
 
               <span class="price-text" id="price-text"> 新台幣 2000 元 </span>
             </div>
 
-            <!-- Booking Button -->
             <button class="booking-button" id="booking-button" type="button">
               開始預約行程
             </button>
@@ -146,45 +120,126 @@
         </div>
       </section>
 
-      <!-- =========================
-         Separator
-    ========================== -->
-
       <div class="main-separator"></div>
 
-      <!-- =========================
-         Attraction Information
-    ========================== -->
-
+      <!-- Attraction Information -->
       <section class="infors">
         <p class="attraction-description" id="attraction-description"></p>
 
-        <!-- Address -->
         <div class="info-block">
           <div class="info-title">景點地址：</div>
-
           <div class="info-content" id="attraction-address"></div>
         </div>
 
-        <!-- Transport -->
         <div class="info-block transport-block">
           <div class="info-title">交通方式：</div>
-
           <div class="info-content" id="attraction-transport"></div>
         </div>
       </section>
     </main>
 
-    <!-- =========================
-       Footer
-  ========================== -->
-
     <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
 
-    <!-- =========================
-       JavaScript
-  ========================== -->
+    <!-- Authentication Dialog -->
+    <div class="auth-modal" id="auth-modal" hidden>
+      <div class="auth-backdrop"></div>
+
+      <!-- Sign In -->
+      <section
+        class="auth-dialog signin-dialog"
+        id="signin-dialog"
+        aria-label="登入會員帳號"
+      >
+        <div class="dialog-decorator"></div>
+
+        <button class="dialog-close" type="button" aria-label="關閉登入視窗">
+          ×
+        </button>
+
+        <div class="dialog-main">
+          <h2 class="dialog-title">登入會員帳號</h2>
+
+          <div class="dialog-container">
+            <input
+              class="dialog-input"
+              id="signin-email"
+              type="email"
+              placeholder="輸入電子信箱"
+            />
+
+            <input
+              class="dialog-input"
+              id="signin-password"
+              type="password"
+              placeholder="輸入密碼"
+            />
+
+            <button class="dialog-submit" id="signin-submit" type="button">
+              登入帳戶
+            </button>
+
+            <div class="dialog-message" id="signin-message"></div>
+
+            <button class="dialog-switch" id="show-signup" type="button">
+              還沒有帳戶？點此註冊
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sign Up -->
+      <section
+        class="auth-dialog signup-dialog"
+        id="signup-dialog"
+        aria-label="註冊會員帳號"
+        hidden
+      >
+        <div class="dialog-decorator"></div>
+
+        <button class="dialog-close" type="button" aria-label="關閉註冊視窗">
+          ×
+        </button>
+
+        <div class="dialog-main">
+          <h2 class="dialog-title">註冊會員帳號</h2>
+
+          <div class="dialog-container">
+            <input
+              class="dialog-input"
+              id="signup-name"
+              type="text"
+              placeholder="輸入姓名"
+            />
+
+            <input
+              class="dialog-input"
+              id="signup-email"
+              type="email"
+              placeholder="輸入電子信箱"
+            />
+
+            <input
+              class="dialog-input"
+              id="signup-password"
+              type="password"
+              placeholder="輸入密碼"
+            />
+
+            <button class="dialog-submit" id="signup-submit" type="button">
+              註冊新帳戶
+            </button>
+
+            <div class="dialog-message" id="signup-message"></div>
+
+            <button class="dialog-switch" id="show-signin" type="button">
+              已經有帳戶了？點此登入
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <script src="/static/js/attraction.js"></script>
+    <script src="/static/js/auth.js"></script>
   </body>
 </html>
