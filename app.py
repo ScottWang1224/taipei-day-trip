@@ -1,7 +1,10 @@
 from fastapi import *
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
+import jwt
+from datetime import datetime, timedelta, timezone
 
 import mysql.connector
 from dotenv import load_dotenv
@@ -22,6 +25,7 @@ def get_database_connection():
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+security = HTTPBearer(auto_error=False)
 
 
 @app.get("/api/categories")
@@ -262,6 +266,178 @@ def get_attraction(attraction_id: int):
 
         if connection and connection.is_connected():
             connection.close()
+
+
+@app.post("/api/user")
+def signup_user(user: dict):
+    connection = None
+    cursor = None
+
+    try:
+        name = user.get("name")
+        email = user.get("email")
+        password = user.get("password")
+
+        if not name or not email or not password:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": True,
+                    "message": "姓名、電子信箱和密碼不得為空",
+                },
+            )
+
+        connection = get_database_connection()
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM users
+            WHERE email = %s
+            """,
+            (email,),
+        )
+
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": True,
+                    "message": "電子信箱已經註冊",
+                },
+            )
+
+        cursor.execute(
+            """
+            INSERT INTO users (name, email, password)
+            VALUES (%s, %s, %s)
+            """,
+            (name, email, password),
+        )
+
+        connection.commit()
+
+        return {"ok": True}
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.put("/api/user/auth")
+def signin_user(user: dict):
+    connection = None
+    cursor = None
+
+    try:
+        email = user.get("email")
+        password = user.get("password")
+
+        if not email or not password:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": True,
+                    "message": "電子信箱和密碼不得為空",
+                },
+            )
+
+        connection = get_database_connection()
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute(
+            """
+            SELECT id, name, email
+            FROM users
+            WHERE email = %s AND password = %s
+            """,
+            (email, password),
+        )
+
+        user_data = cursor.fetchone()
+
+        if user_data is None:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": True,
+                    "message": "電子信箱或密碼錯誤",
+                },
+            )
+
+        payload = {
+            "id": user_data["id"],
+            "name": user_data["name"],
+            "email": user_data["email"],
+            "exp": datetime.now(timezone.utc) + timedelta(days=7),
+        }
+
+        token = jwt.encode(
+            payload,
+            os.getenv("JWT_SECRET"),
+            algorithm="HS256",
+        )
+
+        return {"token": token}
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.get("/api/user/auth")
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
+    if credentials is None:
+        return {"data": None}
+
+    token = credentials.credentials
+
+    try:
+        payload = jwt.decode(
+            token,
+            os.getenv("JWT_SECRET"),
+            algorithms=["HS256"],
+        )
+
+        return {
+            "data": {
+                "id": payload["id"],
+                "name": payload["name"],
+                "email": payload["email"],
+            }
+        }
+
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+        return {"data": None}
 
 
 # Static Pages (Never Modify Code in this Block)

@@ -474,6 +474,219 @@ a {
 }
 
 /* =========================
+   Authentication Dialog
+========================= */
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+}
+
+.auth-modal[hidden] {
+  display: none;
+}
+
+.auth-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: #000000;
+  opacity: 0.25;
+
+  z-index: 2000;
+}
+
+.auth-dialog {
+  position: fixed;
+
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 340px;
+
+  padding: 25px 15px 16px;
+
+  background: #ffffff;
+
+  border-radius: 5px;
+
+  box-shadow: 0 4px 60px #aaaaaaaa;
+
+  z-index: 2001;
+}
+
+.auth-dialog[hidden] {
+  display: none;
+}
+
+/* Figma:
+   Sign In  = 340 × 275
+   Sign Up  = 340 × 332
+
+   高度由內容自然撐開。
+*/
+
+.dialog-decorator {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 340px;
+  height: 10px;
+
+  border-radius: 5px 5px 0 0;
+
+  background: linear-gradient(90deg, #337788 0%, #66aabb 100%);
+}
+
+.dialog-close {
+  position: absolute;
+
+  top: 20px;
+  left: 300px;
+
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  color: #757575;
+
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.dialog-main {
+  width: 310px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.dialog-title {
+  width: 310px;
+  height: 27px;
+
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #666666;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+
+  text-align: center;
+}
+
+.dialog-container {
+  width: 310px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.dialog-input {
+  width: 310px;
+  height: 47px;
+
+  padding: 15px;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  outline: 0;
+
+  background: #ffffff;
+  color: #666666;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.dialog-input::placeholder {
+  color: #757575;
+  opacity: 1;
+}
+
+.dialog-input:focus {
+  border-color: #448899;
+}
+
+.dialog-submit {
+  width: 310px;
+  height: 46px;
+
+  padding: 10px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 5px;
+
+  background: #448899;
+  color: #ffffff;
+
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.dialog-message {
+  display: none;
+
+  width: 310px;
+
+  margin: 0;
+
+  color: #cc0000;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  line-height: 22px;
+
+  text-align: center;
+}
+
+.dialog-message.active {
+  display: block;
+}
+
+.dialog-switch {
+  width: 310px;
+  height: 22px;
+
+  padding: 0;
+
+  background: transparent;
+  color: #666666;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+
+  text-align: center;
+}
+
+/* =========================
    Middle Size
 ========================= */
 
@@ -557,6 +770,32 @@ a {
 
   .attraction-image {
     aspect-ratio: 330 / 235;
+  }
+
+  /* Authentication Dialog */
+
+  .auth-dialog {
+    width: 340px;
+    max-width: calc(100% - 20px);
+  }
+
+  .dialog-decorator {
+    width: 100%;
+  }
+
+  .dialog-main,
+  .dialog-title,
+  .dialog-container,
+  .dialog-input,
+  .dialog-submit,
+  .dialog-message,
+  .dialog-switch {
+    width: 100%;
+  }
+
+  .dialog-close {
+    left: auto;
+    right: 10px;
   }
 
   /* Footer */
