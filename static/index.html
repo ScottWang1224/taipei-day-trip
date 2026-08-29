@@ -6,6 +6,7 @@
     <title>台北一日遊</title>
 
     <link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="/static/css/auth.css" />
   </head>
 
   <body>
@@ -16,7 +17,7 @@
 
         <div class="navigation-menu">
           <a href="#">預定行程</a>
-          <a href="#">登入/註冊</a>
+          <a href="#" id="member-action">登入/註冊</a>
         </div>
       </nav>
     </header>
@@ -48,7 +49,6 @@
                 </button>
               </div>
 
-              <!-- Category popup -->
               <div class="category-menu" hidden></div>
             </div>
           </div>
@@ -57,7 +57,6 @@
 
       <!-- Attraction Section -->
       <section class="attraction-section">
-        <!-- MRT List -->
         <div class="list-bar">
           <div class="arrow-container arrow-left">
             <button class="arrow-button" type="button" aria-label="往左">
@@ -76,13 +75,112 @@
           </div>
         </div>
 
-        <!-- API 動態產生景點 -->
         <div class="attractions"></div>
       </section>
     </main>
 
     <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
 
+    <!-- Authentication Dialog -->
+    <div class="auth-modal" id="auth-modal" hidden>
+      <div class="auth-backdrop"></div>
+
+      <!-- Sign In -->
+      <section
+        class="auth-dialog signin-dialog"
+        id="signin-dialog"
+        aria-label="登入會員帳號"
+      >
+        <div class="dialog-decorator"></div>
+
+        <button class="dialog-close" type="button" aria-label="關閉登入視窗">
+          ×
+        </button>
+
+        <div class="dialog-main">
+          <h2 class="dialog-title">登入會員帳號</h2>
+
+          <div class="dialog-container">
+            <input
+              class="dialog-input"
+              id="signin-email"
+              type="email"
+              placeholder="輸入電子信箱"
+            />
+
+            <input
+              class="dialog-input"
+              id="signin-password"
+              type="password"
+              placeholder="輸入密碼"
+            />
+
+            <button class="dialog-submit" id="signin-submit" type="button">
+              登入帳戶
+            </button>
+
+            <div class="dialog-message" id="signin-message"></div>
+
+            <button class="dialog-switch" id="show-signup" type="button">
+              還沒有帳戶？點此註冊
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sign Up -->
+      <section
+        class="auth-dialog signup-dialog"
+        id="signup-dialog"
+        aria-label="註冊會員帳號"
+        hidden
+      >
+        <div class="dialog-decorator"></div>
+
+        <button class="dialog-close" type="button" aria-label="關閉註冊視窗">
+          ×
+        </button>
+
+        <div class="dialog-main">
+          <h2 class="dialog-title">註冊會員帳號</h2>
+
+          <div class="dialog-container">
+            <input
+              class="dialog-input"
+              id="signup-name"
+              type="text"
+              placeholder="輸入姓名"
+            />
+
+            <input
+              class="dialog-input"
+              id="signup-email"
+              type="email"
+              placeholder="輸入電子信箱"
+            />
+
+            <input
+              class="dialog-input"
+              id="signup-password"
+              type="password"
+              placeholder="輸入密碼"
+            />
+
+            <button class="dialog-submit" id="signup-submit" type="button">
+              註冊新帳戶
+            </button>
+
+            <div class="dialog-message" id="signup-message"></div>
+
+            <button class="dialog-switch" id="show-signin" type="button">
+              已經有帳戶了？點此登入
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <script src="/static/js/index.js"></script>
+    <script src="/static/js/auth.js"></script>
   </body>
 </html>

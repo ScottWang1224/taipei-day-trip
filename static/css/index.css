@@ -559,6 +559,32 @@ a {
     aspect-ratio: 330 / 235;
   }
 
+  /* Authentication Dialog */
+
+  .auth-dialog {
+    width: 340px;
+    max-width: calc(100% - 20px);
+  }
+
+  .dialog-decorator {
+    width: 100%;
+  }
+
+  .dialog-main,
+  .dialog-title,
+  .dialog-container,
+  .dialog-input,
+  .dialog-submit,
+  .dialog-message,
+  .dialog-switch {
+    width: 100%;
+  }
+
+  .dialog-close {
+    left: auto;
+    right: 10px;
+  }
+
   /* Footer */
 
   .footer {
