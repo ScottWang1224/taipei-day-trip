@@ -1,0 +1,827 @@
+/* =========================
+   Global
+========================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Noto Sans TC", sans-serif;
+
+  color: #666666;
+  background: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+}
+
+/* =========================
+   Navigation
+========================== */
+
+.navbar {
+  width: 100%;
+  height: 54px;
+
+  padding: 10px 0;
+
+  background: #ffffff;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 34px;
+
+  margin: 0 auto;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 150px;
+  height: 34px;
+
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34px;
+
+  color: #448899;
+}
+
+.nav-actions {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+}
+
+.nav-button {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 13.3px;
+
+  color: #666666;
+
+  cursor: pointer;
+}
+
+.nav-separator {
+  width: 100%;
+  height: 1px;
+
+  background: #e8e8e8;
+}
+
+/* =========================
+   Main
+========================== */
+
+.main {
+  width: 100%;
+
+  padding-top: 39px;
+}
+
+/* =========================
+   Headline
+========================== */
+
+.booking-headline {
+  width: calc(100% - 40px);
+  max-width: 1000px;
+  height: 27px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 16px;
+
+  color: #666666;
+}
+
+/* =========================
+   Empty State
+========================== */
+
+.empty-booking {
+  width: calc(100% - 40px);
+  max-width: 980px;
+  height: 24px;
+
+  margin: 20px auto 0;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 13.3px;
+
+  color: #666666;
+}
+
+/* =========================
+   Booking Content
+========================== */
+
+.booking-content {
+  width: 100%;
+}
+
+/* =========================
+   Booking Section
+========================== */
+
+.booking-section {
+  position: relative;
+
+  width: calc(100% - 40px);
+  max-width: 980px;
+  height: 200px;
+
+  margin: 30px auto 0;
+
+  display: flex;
+}
+
+.booking-picture {
+  flex: 0 0 250px;
+
+  width: 250px;
+  height: 200px;
+
+  overflow: hidden;
+}
+
+.booking-picture img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.booking-info {
+  flex: 1;
+
+  width: auto;
+  min-width: 0;
+  height: 170px;
+
+  margin-left: 30px;
+}
+
+.booking-attraction-name {
+  width: 100%;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 13.3px;
+
+  color: #448899;
+}
+
+.booking-info-row {
+  width: 100%;
+  height: 24px;
+
+  margin-top: 10px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  line-height: 13.3px;
+
+  color: #666666;
+}
+
+.booking-info-row:first-of-type {
+  margin-top: 20px;
+}
+
+.booking-info-label {
+  flex: 0 0 auto;
+
+  font-weight: 700;
+}
+
+.booking-info-value {
+  min-width: 0;
+
+  font-weight: 400;
+}
+
+.delete-booking {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.delete-booking img {
+  width: 30px;
+  height: 30px;
+
+  display: block;
+}
+
+/* =========================
+   Separator
+========================== */
+
+.main-separator {
+  width: calc(100% - 40px);
+  max-width: 1200px;
+  height: 1px;
+
+  margin: 40px auto;
+
+  background: #e8e8e8;
+}
+
+/* =========================
+   Section Title
+========================== */
+
+.section-title {
+  width: 100%;
+  height: 24px;
+
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 16px;
+
+  color: #666666;
+}
+
+/* =========================
+   Contact Form
+========================== */
+
+.contact-form {
+  width: calc(100% - 40px);
+  max-width: 980px;
+  height: 227px;
+
+  margin: 0 auto;
+}
+
+.form-field {
+  width: 100%;
+  height: 38px;
+
+  margin-top: 15px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 13.3px;
+
+  color: #666666;
+}
+
+.section-title + .form-field {
+  margin-top: 20px;
+}
+
+.form-field label {
+  width: 81px;
+
+  flex: 0 0 81px;
+}
+
+.form-input {
+  width: 200px;
+  height: 38px;
+
+  padding: 10px;
+
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 13.3px;
+
+  color: #000000;
+}
+
+.form-input:focus {
+  border-color: #448899;
+}
+
+.contact-notice {
+  width: 608px;
+  max-width: 100%;
+  min-height: 24px;
+
+  margin: 15px 0 0;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+
+  color: #666666;
+}
+
+/* =========================
+   Payment
+========================== */
+
+.payment {
+  width: calc(100% - 40px);
+  max-width: 980px;
+  height: 188px;
+
+  margin: 0 auto;
+}
+
+.payment-input::placeholder {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 13.3px;
+
+  color: #757575;
+
+  opacity: 1;
+}
+
+/* =========================
+   Confirm
+========================== */
+
+.confirm {
+  width: calc(100% - 40px);
+  max-width: 980px;
+  height: 100px;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.confirm-total {
+  width: 174px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  white-space: nowrap;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 13.3px;
+
+  color: #666666;
+}
+
+.confirm-button {
+  min-width: 173px;
+  height: 36px;
+
+  margin-top: 22px;
+  padding: 10px 20px;
+
+  border-radius: 5px;
+
+  background: #448899;
+
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 16px;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   Footer
+========================== */
+
+.footer {
+  width: 100%;
+  height: 104px;
+
+  margin-top: 40px;
+  padding: 40px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #757575;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+
+  color: #ffffff;
+}
+
+/* =========================
+   Empty State - Desktop
+========================== */
+
+body.booking-empty-state .main {
+  min-height: 160px;
+}
+
+body.booking-empty-state .footer {
+  height: 865px;
+
+  margin-top: 0;
+  padding: 40px 0;
+
+  align-items: flex-start;
+}
+
+/* =========================
+   Transition / Tablet
+   601px ~ 1000px
+========================== */
+
+@media (max-width: 1000px) and (min-width: 701px) {
+  .booking-headline {
+    width: calc(100% - 40px);
+  }
+
+  .booking-section,
+  .contact-form,
+  .payment,
+  .confirm {
+    width: calc(100% - 40px);
+  }
+
+  .main-separator {
+    width: calc(100% - 40px);
+  }
+
+  .booking-info {
+    margin-left: 24px;
+  }
+
+  .booking-info-row,
+  .booking-attraction-name {
+    padding-right: 40px;
+  }
+}
+
+/* =========================
+   Mobile
+========================== */
+
+@media (max-width: 700px) {
+  /* =========================
+     Global / Main
+  ========================== */
+
+  .main {
+    padding-top: 39px;
+  }
+
+  /* =========================
+     Navigation
+  ========================== */
+
+  .navbar-container {
+    max-width: 360px;
+  }
+
+  .nav-actions {
+    flex-shrink: 0;
+  }
+
+  /* =========================
+     Headline
+  ========================== */
+
+  .booking-headline {
+    width: 340px;
+    max-width: none;
+    height: 27px;
+
+    margin: 0 auto;
+
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+
+  /* =========================
+     Booking Section
+  ========================== */
+
+  .booking-section {
+    width: 340px;
+    max-width: none;
+    height: 430px;
+
+    margin: 30px auto 0;
+
+    display: block;
+  }
+
+  .booking-picture {
+    width: 340px;
+    height: 200px;
+
+    overflow: hidden;
+  }
+
+  .booking-picture img {
+    width: 340px;
+    height: 256px;
+
+    object-fit: cover;
+
+    transform: translateY(-28px);
+  }
+
+  .booking-info {
+    position: relative;
+
+    width: 340px;
+    height: 200px;
+
+    margin: 30px 0 0;
+  }
+
+  .booking-attraction-name {
+    width: 340px;
+    height: 24px;
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 13.3px;
+  }
+
+  .booking-info-row {
+    width: 340px;
+    height: 24px;
+
+    margin-top: 10px;
+
+    font-size: 16px;
+    line-height: 13.3px;
+  }
+
+  .booking-info-row:first-of-type {
+    margin-top: 20px;
+  }
+
+  .delete-booking {
+    top: auto;
+    right: 0;
+    bottom: 0;
+
+    width: 30px;
+    height: 30px;
+  }
+
+  .delete-booking img {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* =========================
+     Separator
+  ========================== */
+
+  .main-separator {
+    width: 340px;
+    max-width: none;
+
+    margin: 30px auto 39px;
+  }
+
+  /* =========================
+     Contact Form
+  ========================== */
+
+  .contact-form {
+    width: 340px;
+    max-width: none;
+    height: 256px;
+
+    margin: 0 auto;
+  }
+
+  .section-title {
+    width: 340px;
+    height: 24px;
+  }
+
+  .form-field {
+    width: 340px;
+    height: 38px;
+  }
+
+  .form-field label {
+    width: 81px;
+    flex: 0 0 81px;
+  }
+
+  .form-input {
+    width: 200px;
+    height: 38px;
+  }
+
+  .contact-notice {
+    width: 340px;
+    height: 48px;
+    min-height: 48px;
+
+    margin-top: 15px;
+
+    line-height: 24px;
+  }
+
+  /* =========================
+     Payment
+  ========================== */
+
+  .payment {
+    width: 340px;
+    max-width: none;
+    height: 188px;
+
+    margin: 0 auto;
+  }
+
+  /* =========================
+     Confirm
+  ========================== */
+
+  .confirm {
+    width: 340px;
+    max-width: none;
+    height: 100px;
+
+    margin: 0 auto;
+
+    align-items: flex-end;
+  }
+
+  .confirm-total {
+    width: 174px;
+    height: 20px;
+  }
+
+  .confirm-button {
+    width: 173px;
+    min-width: 173px;
+    height: 36px;
+
+    margin-top: 22px;
+  }
+
+  /* =========================
+     Footer
+  ========================== */
+
+  .footer {
+    width: 100%;
+    height: 104px;
+
+    margin-top: 40px;
+    padding: 40px 0;
+  }
+
+  /* =========================
+     Empty State - Mobile
+  ========================== */
+
+  body.booking-empty-state .main {
+    min-height: 160px;
+  }
+
+  body.booking-empty-state .empty-booking {
+    width: 340px;
+    max-width: none;
+    height: 24px;
+
+    margin: 20px auto 0;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 13.3px;
+  }
+
+  body.booking-empty-state .footer {
+    width: 100%;
+    height: 425px;
+
+    margin-top: 0;
+    padding: 40px 0;
+
+    align-items: flex-start;
+  }
+}
+
+/* =========================
+   Very Small Screens
+========================== */
+
+@media (max-width: 359px) {
+  .booking-headline,
+  .booking-section,
+  .contact-form,
+  .payment,
+  .confirm,
+  .main-separator,
+  body.booking-empty-state .empty-booking {
+    width: calc(100% - 20px);
+  }
+
+  .booking-picture,
+  .booking-picture img,
+  .booking-info,
+  .booking-attraction-name,
+  .booking-info-row,
+  .section-title,
+  .form-field {
+    width: 100%;
+  }
+
+  .booking-picture img {
+    min-width: 100%;
+  }
+
+  .form-input {
+    width: calc(100% - 81px);
+  }
+}
+
+/* =========================
+   Utility
+========================== */
+
+.hidden {
+  display: none;
+}

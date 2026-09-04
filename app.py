@@ -28,6 +28,20 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 security = HTTPBearer(auto_error=False)
 
 
+def decode_token(credentials):
+    if credentials is None:
+        return None
+
+    try:
+        return jwt.decode(
+            credentials.credentials,
+            os.getenv("JWT_SECRET"),
+            algorithms=["HS256"],
+        )
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+        return None
+
+
 @app.get("/api/categories")
 def get_categories():
     connection = None
@@ -438,6 +452,247 @@ def get_current_user(
 
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
         return {"data": None}
+
+
+@app.post("/api/booking")
+def create_booking(
+    booking: dict,
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
+    connection = None
+    cursor = None
+
+    payload = decode_token(credentials)
+
+    if payload is None:
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": True,
+                "message": "未登入系統，拒絕存取",
+            },
+        )
+
+    attraction_id = booking.get("attractionId")
+    date = booking.get("date")
+    time = booking.get("time")
+    price = booking.get("price")
+
+    if not attraction_id or not date or not time or not price:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "error": True,
+                "message": "預定資料不完整",
+            },
+        )
+
+    if time not in ("morning", "afternoon"):
+        return JSONResponse(
+            status_code=400,
+            content={
+                "error": True,
+                "message": "預定時段不正確",
+            },
+        )
+
+    try:
+        connection = get_database_connection()
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM attractions
+            WHERE id = %s
+            """,
+            (attraction_id,),
+        )
+
+        if cursor.fetchone() is None:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": True,
+                    "message": "景點編號不正確",
+                },
+            )
+
+        cursor.execute(
+            """
+            INSERT INTO bookings (
+                user_id,
+                attraction_id,
+                date,
+                time,
+                price
+            )
+            VALUES (%s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+                attraction_id = VALUES(attraction_id),
+                date = VALUES(date),
+                time = VALUES(time),
+                price = VALUES(price)
+            """,
+            (
+                payload["id"],
+                attraction_id,
+                date,
+                time,
+                price,
+            ),
+        )
+
+        connection.commit()
+
+        return {"ok": True}
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.get("/api/booking")
+def get_booking(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
+    connection = None
+    cursor = None
+
+    payload = decode_token(credentials)
+
+    if payload is None:
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": True,
+                "message": "未登入系統，拒絕存取",
+            },
+        )
+
+    try:
+        connection = get_database_connection()
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute(
+            """
+            SELECT
+                b.date,
+                b.time,
+                b.price,
+                a.id AS attraction_id,
+                a.name,
+                a.address,
+                ai.image_url
+            FROM bookings AS b
+            JOIN attractions AS a
+                ON b.attraction_id = a.id
+            LEFT JOIN attraction_images AS ai
+                ON ai.attraction_id = a.id
+            WHERE b.user_id = %s
+            ORDER BY ai.id
+            LIMIT 1
+            """,
+            (payload["id"],),
+        )
+
+        booking = cursor.fetchone()
+
+        if booking is None:
+            return {"data": None}
+
+        return {
+            "data": {
+                "attraction": {
+                    "id": booking["attraction_id"],
+                    "name": booking["name"],
+                    "address": booking["address"],
+                    "image": booking["image_url"],
+                },
+                "date": booking["date"].isoformat(),
+                "time": booking["time"],
+                "price": booking["price"],
+            }
+        }
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.delete("/api/booking")
+def delete_booking(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
+    connection = None
+    cursor = None
+
+    payload = decode_token(credentials)
+
+    if payload is None:
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": True,
+                "message": "未登入系統，拒絕存取",
+            },
+        )
+
+    try:
+        connection = get_database_connection()
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            DELETE FROM bookings
+            WHERE user_id = %s
+            """,
+            (payload["id"],),
+        )
+
+        connection.commit()
+
+        return {"ok": True}
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
 
 
 # Static Pages (Never Modify Code in this Block)

@@ -1,11 +1,219 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking</title>
-</head>
-<body>
-  
-</body>
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>台北一日遊 - 預定行程</title>
+
+    <link rel="stylesheet" href="/static/css/booking.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+         Navigation
+    ========================== -->
+
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="/" class="logo">台北一日遊</a>
+
+        <div class="nav-actions">
+          <a href="#" id="booking-nav">預定行程</a>
+          <a href="#" id="member-action" class="nav-button">登入/註冊</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="nav-separator"></div>
+
+    <!-- =========================
+         Main
+    ========================== -->
+
+    <main class="main">
+      <!-- Headline -->
+
+      <section class="booking-headline">
+        <span>您好，</span>
+        <span id="member-name"></span>
+        <span>，待預訂的行程如下：</span>
+      </section>
+
+      <!-- =========================
+           Empty State
+      ========================== -->
+
+      <section id="empty-booking" class="empty-booking hidden">
+        目前沒有任何待預訂的行程
+      </section>
+
+      <!-- =========================
+           Booking Content
+      ========================== -->
+
+      <div id="booking-content" class="booking-content hidden">
+        <!-- Booking Information -->
+
+        <section class="booking-section">
+          <div class="booking-picture">
+            <img id="booking-image" src="" alt="景點圖片" />
+          </div>
+
+          <div class="booking-info">
+            <div class="booking-attraction-name">
+              台北一日遊：
+              <span id="booking-attraction-name"></span>
+            </div>
+
+            <div class="booking-info-row">
+              <span class="booking-info-label">日期：</span>
+              <span id="booking-date" class="booking-info-value"></span>
+            </div>
+
+            <div class="booking-info-row">
+              <span class="booking-info-label">時間：</span>
+              <span id="booking-time" class="booking-info-value"></span>
+            </div>
+
+            <div class="booking-info-row">
+              <span class="booking-info-label">費用：</span>
+              <span id="booking-price" class="booking-info-value"></span>
+            </div>
+
+            <div class="booking-info-row">
+              <span class="booking-info-label">地點：</span>
+              <span id="booking-address" class="booking-info-value"></span>
+            </div>
+          </div>
+
+          <button
+            id="delete-booking"
+            class="delete-booking"
+            type="button"
+            aria-label="刪除預定行程"
+          >
+            <img src="/static/images/icon_delete.png" alt="刪除預定行程" />
+          </button>
+        </section>
+
+        <div class="main-separator"></div>
+
+        <!-- =========================
+             Contact Information
+        ========================== -->
+
+        <section class="contact-form">
+          <h2 class="section-title">您的聯絡資訊</h2>
+
+          <div class="form-field">
+            <label for="contact-name">聯絡姓名：</label>
+
+            <input
+              type="text"
+              id="contact-name"
+              class="form-input"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="contact-email">連絡信箱：</label>
+
+            <input
+              type="email"
+              id="contact-email"
+              class="form-input"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="contact-phone">手機號碼：</label>
+
+            <input
+              type="tel"
+              id="contact-phone"
+              class="form-input"
+              autocomplete="tel"
+            />
+          </div>
+
+          <p class="contact-notice">
+            請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+          </p>
+        </section>
+
+        <div class="main-separator"></div>
+
+        <!-- =========================
+             Payment
+        ========================== -->
+
+        <section class="payment">
+          <h2 class="section-title">信用卡付款資訊</h2>
+
+          <div class="form-field">
+            <label for="card-number">卡片號碼：</label>
+
+            <input
+              type="text"
+              id="card-number"
+              class="form-input payment-input"
+              placeholder="**** **** **** ****"
+              autocomplete="cc-number"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="card-expiration">過期時間：</label>
+
+            <input
+              type="text"
+              id="card-expiration"
+              class="form-input payment-input"
+              placeholder="MM / YY"
+              autocomplete="cc-exp"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="card-cvv">驗證密碼：</label>
+
+            <input
+              type="text"
+              id="card-cvv"
+              class="form-input payment-input"
+              placeholder="CVV"
+              autocomplete="cc-csc"
+            />
+          </div>
+        </section>
+
+        <div class="main-separator"></div>
+
+        <!-- =========================
+             Confirm
+        ========================== -->
+
+        <section class="confirm">
+          <div class="confirm-total">
+            總價：新台幣
+            <span id="confirm-price"></span>
+            元
+          </div>
+
+          <button type="button" class="confirm-button">確認訂購並付款</button>
+        </section>
+      </div>
+    </main>
+
+    <!-- =========================
+         Footer
+    ========================== -->
+
+    <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
+
+    <script src="/static/js/booking.js"></script>
+  </body>
 </html>
