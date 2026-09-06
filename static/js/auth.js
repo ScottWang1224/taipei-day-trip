@@ -20,6 +20,7 @@ const signupEmail = document.querySelector("#signup-email");
 const signupPassword = document.querySelector("#signup-password");
 const signupSubmit = document.querySelector("#signup-submit");
 const signupMessage = document.querySelector("#signup-message");
+const bookingNav = document.querySelector("#booking-nav");
 
 /* =========================
    Dialog
@@ -172,6 +173,11 @@ async function checkSignInStatus() {
       showSigninDialog();
     });
 
+    bookingNav.addEventListener("click", (event) => {
+      event.preventDefault();
+      showSigninDialog();
+    });
+
     return;
   }
 
@@ -195,12 +201,23 @@ async function checkSignInStatus() {
 
         location.reload();
       });
+
+      bookingNav.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        window.location.href = "/booking";
+      });
     } else {
       localStorage.removeItem("token");
 
       memberAction.textContent = "登入/註冊";
 
       memberAction.addEventListener("click", (event) => {
+        event.preventDefault();
+        showSigninDialog();
+      });
+
+      bookingNav.addEventListener("click", (event) => {
         event.preventDefault();
         showSigninDialog();
       });
