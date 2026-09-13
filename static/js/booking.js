@@ -1,4 +1,12 @@
 /* =========================
+   TapPay Config
+========================== */
+
+const TAPPAY_APP_ID = 171122;
+const TAPPAY_APP_KEY =
+  "app_bQ3NefrfvWFYELy5jbfDtRRBVTSEieaIjy90ynEXyw9seegcpHBz5UvyaJfT";
+
+/* =========================
    DOM
 ========================== */
 
@@ -20,8 +28,10 @@ const deleteBookingButton = document.querySelector("#delete-booking");
 
 const contactName = document.querySelector("#contact-name");
 const contactEmail = document.querySelector("#contact-email");
+const contactPhone = document.querySelector("#contact-phone");
 
 const confirmPrice = document.querySelector("#confirm-price");
+const confirmPaymentButton = document.querySelector("#confirm-payment");
 
 const memberAction = document.querySelector("#member-action");
 
@@ -43,6 +53,57 @@ function getAuthorizationHeaders() {
   return {
     Authorization: `Bearer ${token}`,
   };
+}
+
+/* =========================
+   TapPay Setup
+========================== */
+
+function setupTapPay() {
+  if (typeof TPDirect === "undefined") {
+    console.error("TapPay SDK 載入失敗");
+    return;
+  }
+
+  TPDirect.setupSDK(TAPPAY_APP_ID, TAPPAY_APP_KEY, "sandbox");
+
+  TPDirect.card.setup({
+    fields: {
+      number: {
+        element: "#card-number",
+        placeholder: "**** **** **** ****",
+      },
+
+      expirationDate: {
+        element: "#card-expiration",
+        placeholder: "MM / YY",
+      },
+
+      ccv: {
+        element: "#card-cvv",
+        placeholder: "CVV",
+      },
+    },
+
+    styles: {
+      input: {
+        color: "#666666",
+        "font-size": "16px",
+      },
+
+      ":focus": {
+        color: "#666666",
+      },
+
+      ".valid": {
+        color: "#666666",
+      },
+
+      ".invalid": {
+        color: "#d9534f",
+      },
+    },
+  });
 }
 
 /* =========================
@@ -204,6 +265,133 @@ async function deleteBooking() {
 }
 
 /* =========================
+   Validate Contact
+========================== */
+
+function validateContact() {
+  const name = contactName.value.trim();
+  const email = contactEmail.value.trim();
+  const phone = contactPhone.value.trim();
+
+  if (!name || !email || !phone) {
+    alert("請完整填寫聯絡資訊");
+    return false;
+  }
+
+  return true;
+}
+
+/* =========================
+   Create Order
+========================== */
+
+async function createOrder(prime) {
+  const requestBody = {
+    prime: prime,
+
+    order: {
+      contact: {
+        name: contactName.value.trim(),
+        email: contactEmail.value.trim(),
+        phone: contactPhone.value.trim(),
+      },
+    },
+  };
+
+  const response = await fetch("/api/orders", {
+    method: "POST",
+
+    headers: {
+      ...getAuthorizationHeaders(),
+      "Content-Type": "application/json",
+    },
+
+    body: JSON.stringify(requestBody),
+  });
+
+  const result = await response.json();
+
+  if (response.status === 403) {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error(result.message || "建立訂單失敗");
+  }
+
+  return result;
+}
+
+/* =========================
+   Confirm Payment
+========================== */
+
+function confirmPayment() {
+  if (!validateContact()) {
+    return;
+  }
+
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+
+  if (!tappayStatus.canGetPrime) {
+    alert("信用卡資料有誤，請重新確認");
+    return;
+  }
+
+  confirmPaymentButton.disabled = true;
+  confirmPaymentButton.textContent = "付款處理中...";
+
+  TPDirect.card.getPrime(async (result) => {
+    if (result.status !== 0) {
+      console.error("取得 TapPay Prime 失敗：", result);
+
+      alert(result.msg || "信用卡驗證失敗，請重新確認");
+
+      confirmPaymentButton.disabled = false;
+      confirmPaymentButton.textContent = "確認訂購並付款";
+
+      return;
+    }
+
+    const prime = result.card.prime;
+
+    try {
+      const orderResult = await createOrder(prime);
+
+      if (!orderResult) {
+        return;
+      }
+
+      const orderNumber = orderResult.data?.number;
+
+      const paymentStatus = orderResult.data?.payment?.status;
+
+      const paymentMessage = orderResult.data?.payment?.message;
+
+      if (paymentStatus === 0 && orderNumber) {
+        window.location.href = `/thankyou?number=${encodeURIComponent(
+          orderNumber,
+        )}`;
+
+        return;
+      }
+
+      alert(paymentMessage || "付款失敗，請稍後重新嘗試");
+    } catch (error) {
+      console.error("付款失敗：", error);
+
+      alert(error.message || "付款失敗，請稍後重新嘗試");
+    } finally {
+      confirmPaymentButton.disabled = false;
+      confirmPaymentButton.textContent = "確認訂購並付款";
+    }
+  });
+}
+
+/* =========================
    Logout
 ========================== */
 
@@ -218,6 +406,8 @@ function logout() {
 ========================== */
 
 deleteBookingButton.addEventListener("click", deleteBooking);
+
+confirmPaymentButton.addEventListener("click", confirmPayment);
 
 memberAction.addEventListener("click", (event) => {
   event.preventDefault();
@@ -245,6 +435,10 @@ async function initializeBookingPage() {
   }
 
   renderBooking(bookingResult.data);
+
+  if (bookingResult.data) {
+    setupTapPay();
+  }
 }
 
 initializeBookingPage();

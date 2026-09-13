@@ -154,39 +154,30 @@
           <h2 class="section-title">信用卡付款資訊</h2>
 
           <div class="form-field">
-            <label for="card-number">卡片號碼：</label>
+            <label>卡片號碼：</label>
 
-            <input
-              type="text"
+            <div
               id="card-number"
-              class="form-input payment-input"
-              placeholder="**** **** **** ****"
-              autocomplete="cc-number"
-            />
+              class="form-input payment-input tappay-field"
+            ></div>
           </div>
 
           <div class="form-field">
-            <label for="card-expiration">過期時間：</label>
+            <label>過期時間：</label>
 
-            <input
-              type="text"
+            <div
               id="card-expiration"
-              class="form-input payment-input"
-              placeholder="MM / YY"
-              autocomplete="cc-exp"
-            />
+              class="form-input payment-input tappay-field"
+            ></div>
           </div>
 
           <div class="form-field">
-            <label for="card-cvv">驗證密碼：</label>
+            <label>驗證密碼：</label>
 
-            <input
-              type="text"
+            <div
               id="card-cvv"
-              class="form-input payment-input"
-              placeholder="CVV"
-              autocomplete="cc-csc"
-            />
+              class="form-input payment-input tappay-field"
+            ></div>
           </div>
         </section>
 
@@ -203,7 +194,9 @@
             元
           </div>
 
-          <button type="button" class="confirm-button">確認訂購並付款</button>
+          <button type="button" id="confirm-payment" class="confirm-button">
+            確認訂購並付款
+          </button>
         </section>
       </div>
     </main>
@@ -214,6 +207,10 @@
 
     <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
 
+    <!-- TapPay SDK -->
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.19.0"></script>
+
+    <!-- Booking JavaScript -->
     <script src="/static/js/booking.js"></script>
   </body>
 </html>

@@ -1,11 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You</title>
-</head>
-<body>
-  
-</body>
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>台北一日遊 - 訂購完成</title>
+
+    <link rel="stylesheet" href="/static/css/thankyou.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+         Navigation
+    ========================== -->
+
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="/" class="logo">台北一日遊</a>
+
+        <div class="nav-actions">
+          <a href="/booking" id="booking-nav">預定行程</a>
+          <a href="#" id="member-action" class="nav-button">登入/註冊</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="nav-separator"></div>
+
+    <!-- =========================
+         Main
+    ========================== -->
+
+    <main class="thankyou-main">
+      <section class="thankyou-content">
+        <h1 class="thankyou-title">行程預定成功</h1>
+
+        <p class="thankyou-subtitle">您的訂單編號如下</p>
+
+        <div id="order-number" class="order-number"></div>
+
+        <p class="thankyou-note">請記住此編號，或到會員中心查詢歷史訂單</p>
+      </section>
+    </main>
+
+    <!-- =========================
+         Footer
+    ========================== -->
+
+    <footer class="footer">COPYRIGHT © 2021 台北一日遊</footer>
+
+    <script src="/static/js/thankyou.js"></script>
+  </body>
 </html>
