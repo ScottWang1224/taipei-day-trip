@@ -2,31 +2,30 @@ from fastapi import *
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
 import requests
 import os
 import jwt
-from datetime import datetime, timedelta, timezone
 import uuid
-
+import secrets
 import mysql.connector
+
+from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 from fastapi.responses import JSONResponse
 
+from database import get_database_connection
+from mcp_server import mcp
+
 load_dotenv()
 
+mcp_app = mcp.http_app(path="/")
 
-def get_database_connection():
-    return mysql.connector.connect(
-        host=os.getenv("DB_HOST"),
-        port=int(os.getenv("DB_PORT", "3306")),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME"),
-    )
+app = FastAPI(lifespan=mcp_app.lifespan)
 
-
-app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/mcp", mcp_app)
+
 security = HTTPBearer(auto_error=False)
 
 
@@ -501,6 +500,124 @@ def get_current_user(
 
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
         return {"data": None}
+
+
+@app.get("/api/token")
+def get_mcp_token(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
+    connection = None
+    cursor = None
+
+    payload = decode_token(credentials)
+
+    if payload is None:
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": True,
+                "message": "未登入系統，拒絕存取",
+            },
+        )
+
+    try:
+        connection = get_database_connection()
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute(
+            """
+            SELECT mcp_token
+            FROM users
+            WHERE id = %s
+            """,
+            (payload["id"],),
+        )
+
+        user = cursor.fetchone()
+
+        if user is None:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": True,
+                    "message": "會員不存在",
+                },
+            )
+
+        return {"data": {"token": user["mcp_token"]}}
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
+
+
+@app.put("/api/token")
+def generate_mcp_token(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+):
+    connection = None
+    cursor = None
+
+    payload = decode_token(credentials)
+
+    if payload is None:
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": True,
+                "message": "未登入系統，拒絕存取",
+            },
+        )
+
+    try:
+        token = secrets.token_urlsafe(32)
+
+        connection = get_database_connection()
+        cursor = connection.cursor()
+
+        cursor.execute(
+            """
+            UPDATE users
+            SET mcp_token = %s
+            WHERE id = %s
+            """,
+            (
+                token,
+                payload["id"],
+            ),
+        )
+
+        connection.commit()
+
+        return {"data": {"token": token}}
+
+    except mysql.connector.Error:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": True,
+                "message": "伺服器內部錯誤",
+            },
+        )
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection and connection.is_connected():
+            connection.close()
 
 
 @app.post("/api/booking")
@@ -1068,3 +1185,8 @@ async def booking(request: Request):
 @app.get("/thankyou", include_in_schema=False)
 async def thankyou(request: Request):
     return FileResponse("./static/thankyou.html", media_type="text/html")
+
+
+@app.get("/member", include_in_schema=False)
+async def member(request: Request):
+    return FileResponse("./static/member.html", media_type="text/html")
