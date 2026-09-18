@@ -192,14 +192,12 @@ async function checkSignInStatus() {
     const result = await response.json();
 
     if (result.data) {
-      memberAction.textContent = "登出系統";
+      memberAction.textContent = "會員中心";
 
       memberAction.addEventListener("click", (event) => {
         event.preventDefault();
 
-        localStorage.removeItem("token");
-
-        location.reload();
+        window.location.href = "/member";
       });
 
       bookingNav.addEventListener("click", (event) => {

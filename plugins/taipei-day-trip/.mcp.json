@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "taipei-day-trip": {
+      "type": "streamable_http",
+      "url": "http://52.63.17.132:8000/mcp/",
+      "bearer_token_env_var": "TAIPEI_DAY_TRIP_MCP_TOKEN"
+    }
+  }
+}

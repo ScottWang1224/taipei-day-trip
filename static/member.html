@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>會員中心｜台北一日遊</title>
+
+    <link rel="stylesheet" href="/static/css/member.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+         Navigation
+    ========================== -->
+
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="/" class="logo">台北一日遊</a>
+
+        <div class="nav-links">
+          <a href="/booking">預定行程</a>
+          <a href="/member">會員中心</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="nav-separator"></div>
+
+    <!-- =========================
+         Main
+    ========================== -->
+
+    <main class="member-container">
+      <h1>會員中心</h1>
+
+      <!-- =========================
+           MCP Integration
+      ========================== -->
+
+      <section class="mcp-section">
+        <h2>AI 工具整合</h2>
+
+        <div class="setting-item">
+          <label for="mcp-host">MCP Host URL</label>
+
+          <input id="mcp-host" type="text" readonly />
+        </div>
+
+        <div class="setting-item">
+          <label for="mcp-token">Bearer Token</label>
+
+          <textarea
+            id="mcp-token"
+            readonly
+            placeholder="尚未產生金鑰"
+          ></textarea>
+        </div>
+
+        <button id="generate-token-button">產生 / 更新金鑰</button>
+      </section>
+
+      <!-- =========================
+           Logout
+      ========================== -->
+
+      <section class="logout-section">
+        <button id="logout-button">登出會員</button>
+      </section>
+    </main>
+
+    <!-- =========================
+         Footer
+    ========================== -->
+
+    <footer class="footer">COPYRIGHT © 2026 台北一日遊</footer>
+
+    <script src="/static/js/member.js"></script>
+  </body>
+</html>
